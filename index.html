@@ -1,9 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Events Dash SOP</title>
   <style>
     body {
@@ -11,6 +10,8 @@
       background-color: #0a0a0a;
       color: #e0d8f9;
       padding: 2rem;
+      max-width: 960px;
+      margin: auto;
     }
     h1, h2, h3 {
       color: #b388ff;
@@ -65,85 +66,69 @@
       border-radius: 8px;
       background-color: #12121c;
     }
+    summary {
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #00ffcc;
+      margin-bottom: 0.5em;
+    }
+    details[open] summary {
+      margin-bottom: 1em;
+    }
     ol, ul {
       margin-left: 1.5rem;
+      line-height: 1.8;
     }
-    details summary {
-      cursor: pointer;
-      color: #00ffcc;
-      font-weight: bold;
-      margin-top: 1rem;
+    .light-mode {
+      background-color: #ffffff;
+      color: #000000;
     }
-    details[open] summary::after {
-      content: " ▲";
-    }
-    details summary::after {
-      content: " ▼";
+    .toggle-container {
+      text-align: right;
+      margin-bottom: 1rem;
     }
   </style>
 </head>
 <body>
-  <h1>📄 Events Dash: Standard Operating Procedure (SOP)</h1>
+  <div class="toggle-container">
+    <button onclick="toggleMode()">Toggle Light/Dark Mode</button>
+  </div>
 
-  <section>
-    <h2>🌟 Purpose</h2>
-    <p>This SOP ensures Cardano ecosystem events are accurately added to the Events Dash, a shared calendar and dashboard for key ecosystem happenings. It applies to community members, Intersect staff, and the Event Dash team.</p>
-  </section>
+  <h1>Events Dash – Standard Operating Procedure</h1>
 
-  <section>
-    <h2>📅 Contributor Types & Responsibilities</h2>
+  <details open>
+    <summary>Purpose</summary>
+    <p>This SOP explains how to submit events to the Events Hub Dash – a shared community calendar showcasing governance and ecosystem activity in the Cardano network.</p>
+  </details>
+
+  <details>
+    <summary>Contributor Roles</summary>
     <table>
       <tr><th>Contributor</th><th>Role</th></tr>
-      <tr><td>Community Members</td><td>Share public events they’re organizing or know of</td></tr>
-      <tr><td>Intersect Staff</td><td>Add internal events (committees, working groups, AMAs) using templates</td></tr>
-      <tr><td>Event Dash Team</td><td>Curate events, manage calendar integrations, review submissions, maintain accuracy</td></tr>
+      <tr><td>Community Members</td><td>Submit and share events they organize or attend</td></tr>
+      <tr><td>Intersect Staff</td><td>Add recurring meetings and governance events</td></tr>
+      <tr><td>Event Dash Team</td><td>Curate, verify, and manage events on the calendar</td></tr>
     </table>
-  </section>
+  </details>
 
-  <section>
-    <h2>🛠️ Methods for Adding Events</h2>
-    <ol>
-      <li><strong>Google Form:</strong> Community members fill in an event submission form.</li>
-      <li><strong>Calendar Invite:</strong> Create a calendar event and invite <code>events@digitalinnovation.co.uk</code>. Paste the event template into the description field.</li>
-      <li><strong>Intersect Calendar:</strong> Staff include the template when creating events in the Intersect Google Calendar.</li>
-      <li><strong>Manual Entry:</strong> Event Dash team monitors Luma, X, and other channels to add events manually.</li>
-    </ol>
-  </section>
+  <details>
+    <summary>Ways to Add Events</summary>
+    <ul>
+      <li><strong>Form:</strong> <a href="https://docs.google.com/forms/d/e/1FAIpQLSfVnAWzBelbfU6KlRJp4B4GKiE1IUNZr-iaCtV4i5OGxb-iWw/viewform" target="_blank">Submit via Google Form</a>.</li>
+      <li><strong>Calendar Invite:</strong> Create an event and invite <code>events@digitalinnovation.co.uk</code>.</li>
+      <li><strong>Intersect Calendar:</strong> Staff include template in Google Calendar event description.</li>
+      <li><strong>Manual:</strong> Event Dash team adds public events from Luma or X.</li>
+    </ul>
+  </details>
 
-  <section>
-    <h2>📋 Event Template</h2>
+  <details open>
+    <summary>📋 Event Template</summary>
     <p>Use the collapsible sections below to find the blank version (for completion) and an example version (for guidance). You can also use the button to copy the blank template to your clipboard:</p>
-
     <button onclick="copyTemplate()">📋 Copy Blank Template</button>
-    <script>
-      function copyTemplate() {
-        const template = `//* To create additional information for the common dashboard please read the instructions and enter data between the { } characters below **//
-
-// ========= START OF TEMPLATE ===============//
-
-Brief_Description: {}
-Primary_Category: {}   // (1) Workshops and Training (2) Community Meetups (3) Committee or Working Group (4) Hack-a-thon (5) X Space (6) Conferences and Large Events (7) Other (8) Add option
-Event_Format: {}       // (1) Online (2) In person (3) Hybrid
-Event_City: {}
-Event_URL: {}
-Language: {}           // (1) English (2) Mandarin Chinese (3) Spanish (4) French (5) Arabic (6) Bengali (7) Russian (8) Portuguese (9) Urdu (10) Vietnamese (11) German (12) Japanese (13) Add option
-Organiser_Name: {}
-Organiser_Email: {}
-Organiser_X_Account: {}
-Intended_Audience: {}  // (1) General Community (2) Intersect Members (3) DReps (4) SPOs (5) Committee and Working Group members
-Keywords: {}
-Committee: {}          // (1) Civics (2) Membership & Community (3) Growth & Marketing (4) Technical Steering (5) Parameter (6) Open Source (7) Budget (8) Product
-Additional_Information: {}
-
-// ========= END OF TEMPLATE ===============//`;
-        navigator.clipboard.writeText(template);
-        alert('📋 Blank template copied to clipboard!');
-      }
-    </script>
 
     <details>
       <summary>📋 Blank Template (fill in values between the curly brackets)</summary>
-      <textarea rows="30" readonly>
+      <textarea id="eventTemplate" rows="30" readonly>
 //* To create additional information for the common dashboard please read the instructions and enter data between the { } characters below **//
 
 // ========= START OF TEMPLATE ===============//
@@ -190,34 +175,22 @@ Additional_Information: {Please join early to test audio setup.}
 // ========= END OF TEMPLATE ===============//
       </textarea>
     </details>
-  </section>
+  </details>
 
-  <section>
-    <h2>📟 Tagging Conventions</h2>
-    <table>
-      <tr><th>Tag</th><th>Use Case</th></tr>
-      <tr><td><code>RARE2025</code></td><td>Rare Evo 2025 events</td></tr>
-      <tr><td><code>Intersect</code></td><td>Internal/Intersect-hosted events</td></tr>
-      <tr><td><code>Governance</code></td><td>Governance sessions</td></tr>
-      <tr><td><code>Community</code></td><td>Community-led events</td></tr>
-      <tr><td><code>In-person / Online</code></td><td>Mode of event</td></tr>
-      <tr><td><code>[Region]</code></td><td>Region-specific (e.g., Asia, LATAM)</td></tr>
-    </table>
-  </section>
+  <details>
+    <summary>💬 Support</summary>
+    <p>If you need help, please reach out to us at <code>events@digitalinnovation.co.uk</code></p>
+  </details>
 
-  <section>
-    <h2>🔄 Review & Moderation</h2>
-    <ul>
-      <li>All submissions are reviewed by the Event Dash team</li>
-      <li>Duplicates will be resolved before publishing</li>
-      <li>Incomplete events may be returned with a request for edits</li>
-    </ul>
-  </section>
-
-  <section>
-    <h2>🧑‍💻 Questions or Help?</h2>
-    <p>Contact: <code>events@digitalinnovation.co.uk</code><br>
-    Or message us on the Intersect Discord in <strong>#events-dash</strong></p>
-  </section>
+  <script>
+    function copyTemplate() {
+      const template = document.getElementById("eventTemplate").textContent;
+      navigator.clipboard.writeText(template);
+      alert("Template copied to clipboard!");
+    }
+    function toggleMode() {
+      document.body.classList.toggle("light-mode");
+    }
+  </script>
 </body>
 </html>
