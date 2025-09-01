@@ -1,168 +1,276 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Events Dash SOP</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EventDash – SOP</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #0a0a0a;
-      color: #e0d8f9;
-      padding: 2rem;
-      max-width: 960px;
-      margin: auto;
+    :root{
+      --bg: #0a0f1c;
+      --panel: #0f1526;
+      --panel-2:#0d1222;
+      --text: #e7e7ff;
+      --muted:#b8b8d9;
+      --border:#243056;
+      --accent:#a78bfa;
+      --accent-2:#7c3aed;
+      --teal:#2dd4bf;
+      --link:#80ffd9;
+      --ok:#22c55e;
+      --warn:#f59e0b;
+      --radius:14px;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --focus:0 0 0 3px rgba(124,58,237,.35);
     }
-    h1, h2, h3 {
-      color: #b388ff;
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      background: radial-gradient(1200px 600px at 20% -10%, rgba(124,58,237,.25), transparent),
+                  radial-gradient(1200px 600px at 120% 10%, rgba(167,139,250,.18), transparent),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.55;
     }
-    a {
-      color: #00ffcc;
+
+    /* Top bar */
+    .topbar{
+      background: linear-gradient(90deg, var(--accent-2), var(--accent));
+      padding: 26px 18px;
+      position: sticky;
+      top:0; z-index: 5;
+      box-shadow: var(--shadow);
     }
-    code, pre, textarea {
-      background-color: #292645;
-      color: #e0d8f9;
-      padding: 0.5em;
-      border-radius: 4px;
-      font-family: Consolas, monospace;
+    .wrap{max-width:1100px; margin:0 auto; padding: 24px;}
+    .brand{
+      display:flex; align-items:center; gap:14px;
+      font-weight:700; letter-spacing:.3px;
     }
-    pre, textarea {
-      white-space: pre-wrap;
-      border-left: 4px solid #00ffcc;
-      margin-top: 1rem;
-      width: 100%;
-      border: 1px solid #4d4d7a;
+    .brand .dot{
+      width:38px;height:38px;border-radius:12px;
+      background: radial-gradient(120% 120% at 30% 20%, #fff, #e9d5ff 20%, #a78bfa 60%, #5b21b6 100%);
+      box-shadow: inset 0 0 18px rgba(255,255,255,.25), 0 8px 30px rgba(0,0,0,.25);
     }
-    button {
-      margin-top: 0.5rem;
-      padding: 0.5em 1em;
-      background: #00ffcc;
-      color: #000;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
+    .brand h1{margin:0;font-size:22px}
+    .brand small{display:block;opacity:.9;font-weight:600}
+
+    /* Layout */
+    .grid{display:grid;grid-template-columns: 320px 1fr; gap:22px}
+    @media (max-width: 980px){ .grid{grid-template-columns: 1fr} }
+
+    /* Side card */
+    .card{
+      background: linear-gradient(180deg, var(--panel), var(--panel-2));
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px 18px 8px;
     }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 1.5em 0;
-      background-color: #1c1c2b;
+    .card h3{
+      margin:6px 0 10px;
+      font-size:16px;
+      font-weight:700;
+      letter-spacing:.25px;
+      color:var(--accent);
     }
-    th, td {
-      border: 1px solid #4d4d7a;
-      padding: 0.75em;
+    .card p{color:var(--muted); margin:10px 0 14px}
+    .card .badge{
+      display:inline-flex; align-items:center; gap:6px;
+      border:1px solid var(--border);
+      background:#0b1222; padding:6px 10px; border-radius: 999px;
+      font-size:12px; color:#d9d9ff;
     }
-    th {
-      background-color: #2e1f47;
-      color: #fff;
+    .toc a{
+      display:flex; align-items:center; gap:10px;
+      padding:10px 12px; margin:6px 0;
+      border-radius:10px; text-decoration:none; color:var(--text);
+      border:1px solid transparent;
     }
-    tr:nth-child(even) {
-      background-color: #1a1a26;
+    .toc a:hover{ background:#0b1120; border-color:var(--border)}
+    .toc small{color:var(--muted)}
+
+    /* Content */
+    h2{
+      font-size:20px; margin:0 0 10px 0;
+      color:var(--accent);
     }
-    section {
-      margin-bottom: 3rem;
-      padding: 1rem;
-      border: 1px solid #2d2d48;
-      border-radius: 8px;
-      background-color: #12121c;
+    section{
+      margin-bottom:22px; padding:18px;
+      background: linear-gradient(180deg, rgba(124,58,237,.06), transparent);
+      border:1px solid var(--border);
+      border-radius: var(--radius);
     }
-    summary {
-      font-size: 1.2em;
-      font-weight: bold;
-      color: #00ffcc;
-      margin-bottom: 0.5em;
+    .lead{font-size:15.5px;color:#eaeaff;opacity:.9}
+
+    /* Steps */
+    .steps{display:grid; gap:14px}
+    .step{
+      background: #0b1120;
+      border:1px solid var(--border);
+      border-radius: 12px; padding:14px;
     }
-    details[open] summary {
-      margin-bottom: 1em;
+    .step h4{margin:0 0 6px;font-size:15px}
+    .hint{color:var(--muted); font-size:13px}
+    .ok{color:var(--ok); font-weight:600}
+    .warn{color:var(--warn); font-weight:600}
+
+    /* Buttons/inputs */
+    .buttons{display:flex; flex-wrap:wrap; gap:10px; margin:10px 0 0}
+    .btn{
+      appearance:none; border:1px solid var(--border);
+      background: linear-gradient(180deg, #111832, #0c1227);
+      color:var(--text); padding:10px 14px; border-radius: 12px;
+      font-weight:600; cursor:pointer;
     }
-    ol, ul {
-      margin-left: 1.5rem;
-      line-height: 1.8;
+    .btn:hover{box-shadow:var(--focus)}
+    .btn.primary{
+      background: linear-gradient(90deg, var(--accent-2), var(--accent));
+      border-color: transparent; color:white;
     }
-    .light-mode {
-      background-color: #ffffff;
-      color: #000000;
+    a.link{color:var(--link); text-decoration:none; border-bottom:1px dashed rgba(128,255,217,.4)}
+    a.link:hover{opacity:.9}
+
+    /* Code blocks / template */
+    .block{
+      background:#0a0f1e; border:1px solid var(--border);
+      border-left:4px solid var(--teal);
+      border-radius: 10px; padding:12px; overflow:auto;
     }
-    .toggle-container {
-      text-align: right;
-      margin-bottom: 1rem;
+    textarea.code{
+      width:100%; min-height:280px; resize:vertical;
+      background:transparent; color:var(--text);
+      border:none; outline:none; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 13.5px; line-height:1.5;
     }
+    .mini{min-height:160px}
+    details{border:1px solid var(--border); border-radius:12px; overflow:hidden; background:#0b1120}
+    summary{cursor:pointer; padding:12px 14px; font-weight:700; color:#dcdcff}
+    details > div{padding: 0 14px 14px}
+
+    /* Callouts */
+    .callouts{display:grid; gap:14px}
+    .callout{
+      display:flex; gap:12px; align-items:flex-start;
+      padding:12px 14px; border:1px dashed var(--border); border-radius:12px; background:#0c1223;
+    }
+    .callout strong{color:#fff}
+    .pill{padding:3px 8px;border:1px solid var(--border); border-radius:999px; font-size:12px; color:#e8e8ff}
+
+    .footer{opacity:.75; font-size:13px; margin:18px 0 8px}
   </style>
 </head>
 <body>
-  <div class="toggle-container">
-    <button onclick="toggleMode()">Toggle Light/Dark Mode</button>
+
+  <!-- topbar -->
+  <div class="topbar">
+    <div class="wrap brand">
+      <div class="dot" aria-hidden="true"></div>
+      <div>
+        <h1>Event Dash</h1>
+        <small>Explore the live calendar of events • SOP</small>
+      </div>
+    </div>
   </div>
 
-  <h1>Events Dash – Standard Operating Procedure</h1>
+  <div class="wrap grid">
+    <!-- left rail -->
+    <aside class="card">
+      <h3>Quick Menu</h3>
+      <div class="toc">
+        <a href="#purpose">📌 <span>Purpose</span></a>
+        <a href="#add">➕ <span>Add Your Event</span></a>
+        <a href="#template">🧩 Event Template</a>
+        <a href="#calendar-snippet">📎 Google Calendar Snippet</a>
+        <a href="#roles">👥 Contributor Roles</a>
+        <a href="#quality">✅ Quality Checklist</a>
+        <a href="#support">💬 Support</a>
+      </div>
 
-  <details open>
-    <summary>Purpose</summary>
-    <p>This SOP explains how to submit events to the Events Hub Dash – a shared community calendar showcasing governance and ecosystem activity in the Cardano network.</p>
-  </details>
+      <h3 style="margin-top:16px">Status & Tips</h3>
+      <p class="badge">Timezone display: <strong>UTC</strong></p>
+      <p class="hint">EventDash lists X Spaces, Zoom/Meet, Luma events, IRL meetups, and committee sessions.</p>
+      <p class="hint">Recurring? Invite our address once; update your own series and we’ll mirror changes.</p>
+    </aside>
 
-  <details>
-    <summary>Contributor Roles</summary>
-    <table>
-      <tr><th>Contributor</th><th>Role</th></tr>
-      <tr><td>Community Members</td><td>Submit and share events they organize or attend</td></tr>
-      <tr><td>Intersect Staff</td><td>Add recurring meetings and governance events</td></tr>
-      <tr><td>Event Dash Team</td><td>Curate, verify, and manage events on the calendar</td></tr>
-    </table>
-  </details>
+    <!-- main content -->
+    <main>
+      <section id="purpose">
+        <h2>What this page is</h2>
+        <p class="lead">
+          A short, practical guide to getting your events onto <strong>eventdash.org</strong> — fast. Two options:
+          <strong>submit the form</strong> (quickest) or <strong>add a Google Calendar event and invite us</strong>.
+        </p>
+      </section>
 
-  <details>
-    <summary>Ways to Add Events</summary>
-    <ul>
-      <li><strong>Form:</strong> <a href="https://docs.google.com/forms/d/e/1FAIpQLSfVnAWzBelbfU6KlRJp4B4GKiE1IUNZr-iaCtV4i5OGxb-iWw/viewform" target="_blank">Submit via Google Form</a>.</li>
-      <li><strong>Calendar Invite:</strong> Create an event and invite <code>events@digitalinnovation.co.uk</code>.</li>
-      <li><strong>Intersect Calendar:</strong> Staff include template in Google Calendar event description.</li>
-      <li><strong>Manual:</strong> Event Dash team adds public events from Luma or X.</li>
-    </ul>
-  </details>
+      <section id="add">
+        <h2>Two ways to add your event</h2>
 
-  <details open>
-    <summary>📋 Event Template</summary>
-    <p>Use the collapsible sections below to find the blank version (for completion) and an example version (for guidance). You can also use the button to copy the blank template to your clipboard:</p>
-    <button onclick="copyTemplate()">📋 Copy Blank Template</button>
+        <div class="steps">
+          <div class="step">
+            <h4>Option A — Use the Form (recommended)</h4>
+            <p class="hint">Takes ~2 minutes. Perfect if you’re not using Google Calendar or want us to publish for you.</p>
+            <div class="buttons">
+              <a class="btn primary" target="_blank" rel="noopener" href="https://docs.google.com/forms/d/e/1FAIpQLSfVnAWzBelbfU6KlRJp4B4GKiE1IUNZr-iaCtV4i5OGxb-iWw/viewform">Open Submission Form</a>
+              <a class="btn" target="_blank" rel="noopener" href="https://eventdash.org">Preview on EventDash</a>
+            </div>
+          </div>
 
-    <details>
-      <summary>📋 Blank Template (fill in values between the curly brackets)</summary>
-      <textarea id="eventTemplate" rows="30" readonly>
-//* To create additional information for the common dashboard please read the instructions and enter data between the { } characters below **//
+          <div class="step">
+            <h4>Option B — Add via Google Calendar (self-serve)</h4>
+            <ol class="hint">
+              <li>Create your event in Google Calendar (set the correct date, time, and timezone).</li>
+              <li>Make it <strong>Public</strong> (Visibility).</li>
+              <li>Paste the <em>Event Template</em> from below into the description.</li>
+              <li>Invite: <code>events@digitalinnovation.co.uk</code> as a guest.</li>
+              <li>Include a public URL (Luma, X post, website, or Zoom/Meet link).</li>
+            </ol>
+            <p class="hint">We’ll accept the invite and your event will flow into EventDash automatically.</p>
+          </div>
+        </div>
+      </section>
 
-// ========= START OF TEMPLATE ===============//
+      <section id="template">
+        <h2>Event Template</h2>
+        <p class="hint">Add this to the Google Calendar description <em>or</em> paste it into the form. Fill in values inside <code>{ }</code>. Keep categories as numbers to help filtering.</p>
+
+        <details open>
+          <summary>📋 Blank Template</summary>
+          <div class="block">
+            <textarea id="tmpl" class="code" spellcheck="false">
+//* EventDash metadata — fill only inside { } *//
 
 Brief_Description: {}
-Primary_Category: {}   // (1) Workshops and Training (2) Community Meetups (3) Committee or Working Group (4) Hack-a-thon (5) X Space (6) Conferences and Large Events (7) Other (8) Add option
-Event_Format: {}       // (1) Online (2) In person (3) Hybrid
+Primary_Category: {}   // (1) Workshops & Training (2) Community Meetups (3) Committee / WG (4) Hackathon (5) X Space (6) Conference / Major (7) Other
+Event_Format: {}       // (1) Online (2) In-person (3) Hybrid
 Event_City: {}
 Event_URL: {}
-Language: {}           // (1) English (2) Mandarin Chinese (3) Spanish (4) French (5) Arabic (6) Bengali (7) Russian (8) Portuguese (9) Urdu (10) Vietnamese (11) German (12) Japanese (13) Add option
+Language: {}           // (1) English (2) Mandarin (3) Spanish (4) French (5) Arabic (6) Bengali (7) Russian (8) Portuguese (9) Urdu (10) Vietnamese (11) German (12) Japanese (13) Other
 Organiser_Name: {}
 Organiser_Email: {}
 Organiser_X_Account: {}
-Intended_Audience: {}  // (1) General Community (2) Intersect Members (3) DReps (4) SPOs (5) Committee and Working Group members
+Intended_Audience: {}  // (1) General Community (2) Intersect Members (3) DReps (4) SPOs (5) Committee/WG
 Keywords: {}
 Committee: {}          // (1) Civics (2) Membership & Community (3) Growth & Marketing (4) Technical Steering (5) Parameter (6) Open Source (7) Budget (8) Product
 Additional_Information: {}
+            </textarea>
+          </div>
+          <div class="buttons">
+            <button class="btn" onclick="copy('tmpl')">Copy Blank Template</button>
+          </div>
+        </details>
 
-// ========= END OF TEMPLATE ===============//
-      </textarea>
-    </details>
-
-    <details>
-      <summary>💡 Example Template (for guidance only)</summary>
-      <textarea rows="30" readonly>
-//* To create additional information for the common dashboard please read the instructions and enter data between the { } characters below **//
-
-// ========= START OF TEMPLATE ===============//
-
-Brief_Description: {Introductory Workshop on Open Source}
+        <details>
+          <summary>💡 Example (for guidance)</summary>
+          <div class="block">
+            <textarea class="code mini" spellcheck="false">
+Brief_Description: {Intro Workshop: Open Source on Cardano}
 Primary_Category: {1}
 Event_Format: {3}
 Event_City: {Lisbon}
-Event_URL: {https://cardano.org/events/open-source-workshop}
+Event_URL: {https://luma.xyz/event/opensrc-cardano}
 Language: {1}
 Organiser_Name: {Jane Doe}
 Organiser_Email: {jane@intersectmbo.org}
@@ -170,26 +278,99 @@ Organiser_X_Account: {@JaneCardano}
 Intended_Audience: {1,3,5}
 Keywords: {governance, open source, onboarding}
 Committee: {6}
-Additional_Information: {Please join early to test audio setup.}
+Additional_Information: {Join 10 minutes early to test audio/video.}
+            </textarea>
+          </div>
+        </details>
+      </section>
 
-// ========= END OF TEMPLATE ===============//
-      </textarea>
-    </details>
-  </details>
+      <section id="calendar-snippet">
+        <h2>Google Calendar — ready-made description block</h2>
+        <p class="hint">Paste this under your normal event details. It helps us map your event to filters on EventDash.</p>
+        <div class="block">
+          <textarea id="gcal" class="code mini" spellcheck="false">
+— EventDash Meta —
+Category: {5 X Space}
+Format: {Online}
+Language: {English}
+City (if IRL): {}
+Audience: {General Community}
+Committee (if any): {}
+Keywords: {governance, education}
+Public URL: {https://twitter.com/i/spaces/xxxxxxxx}
+          </textarea>
+        </div>
+        <div class="buttons">
+          <button class="btn" onclick="copy('gcal')">Copy Calendar Snippet</button>
+          <button class="btn" onclick="copyAddress()">Copy Invite Address</button>
+        </div>
+      </section>
 
-  <details>
-    <summary>💬 Support</summary>
-    <p>If you need help, please reach out to us at <code>events@digitalinnovation.co.uk</code></p>
-  </details>
+      <section id="roles">
+        <h2>Contributor roles</h2>
+        <div class="callouts">
+          <div class="callout"><span class="pill">Community</span>
+            <div><strong>Submit and share</strong> events you host or attend — form or calendar invite both work.</div>
+          </div>
+          <div class="callout"><span class="pill">Intersect Staff</span>
+            <div>Add recurring meetings, governance actions, workshops. Use the template for clean filters.</div>
+          </div>
+          <div class="callout"><span class="pill">EventDash Team</span>
+            <div>Curate, verify links, tag categories/languages, and surface featured items.</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="quality">
+        <h2>Quality checklist</h2>
+        <ul class="hint">
+          <li><span class="ok">✓</span> Public URL provided (Luma, X Space, website, or video link).</li>
+          <li><span class="ok">✓</span> Start/end time and timezone correct (EventDash displays in UTC).</li>
+          <li><span class="ok">✓</span> Template fields completed (Category, Format, Language at minimum).</li>
+          <li><span class="ok">✓</span> Recurring series? Keep the same title; update your source event, not a duplicate.</li>
+          <li><span class="ok">✓</span> Changes or cancellations: update your original event or email <code>events@digitalinnovation.co.uk</code>.</li>
+        </ul>
+      </section>
+
+      <section id="support">
+        <h2>Support</h2>
+        <p class="hint">
+          Need a hand? Email <code>events@digitalinnovation.co.uk</code> or submit via the
+          <a class="link" target="_blank" rel="noopener" href="https://docs.google.com/forms/d/e/1FAIpQLSfVnAWzBelbfU6KlRJp4B4GKiE1IUNZr-iaCtV4i5OGxb-iWw/viewform">EventDash Form</a>.
+        </p>
+        <p class="footer">EventDash • community-curated calendar for Cardano</p>
+      </section>
+    </main>
+  </div>
 
   <script>
-    function copyTemplate() {
-      const template = document.getElementById("eventTemplate").textContent;
-      navigator.clipboard.writeText(template);
-      alert("Template copied to clipboard!");
+    function copy(id){
+      const el = document.getElementById(id);
+      if(!el) return;
+      navigator.clipboard.writeText(el.value || el.textContent).then(()=>{
+        toast('Copied to clipboard');
+      });
     }
-    function toggleMode() {
-      document.body.classList.toggle("light-mode");
+    function copyAddress(){
+      navigator.clipboard.writeText('events@digitalinnovation.co.uk').then(()=>{
+        toast('Invite address copied');
+      });
+    }
+    function toast(text){
+      const t = document.createElement('div');
+      t.textContent = text;
+      t.style.position='fixed';
+      t.style.bottom='18px';
+      t.style.left='50%';
+      t.style.transform='translateX(-50%)';
+      t.style.background='linear-gradient(90deg, var(--accent-2), var(--accent))';
+      t.style.color='white';
+      t.style.padding='10px 14px';
+      t.style.borderRadius='999px';
+      t.style.boxShadow='var(--shadow)';
+      t.style.zIndex='9999';
+      document.body.appendChild(t);
+      setTimeout(()=>t.remove(), 1400);
     }
   </script>
 </body>
