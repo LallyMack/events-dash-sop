@@ -1,4 +1,5 @@
-about_html = """<!DOCTYPE html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -69,13 +70,6 @@ about_html = """<!DOCTYPE html>
     .neon{border:1px solid var(--border); border-radius:12px; padding:16px; background:#0b1120}
     .neon:hover{box-shadow:0 0 0 1px rgba(128,255,217,.25), 0 10px 24px rgba(0,0,0,.35)}
 
-    /* Proof band */
-    .proof{display:grid; grid-template-columns: repeat(4,1fr); gap:12px; margin:22px 0}
-    @media (max-width: 720px){ .proof{grid-template-columns: repeat(2,1fr)} }
-    .stat{background:#0a0f1e; border:1px solid var(--border); border-radius:12px; padding:14px; text-align:center}
-    .stat .n{font-weight:800; font-size:20px}
-    .stat small{display:block; color:#bfc3ff}
-
     /* Flip Do/Don't */
     .grid-flip{display:grid; grid-template-columns: repeat(3,1fr); gap:14px}
     @media (max-width: 960px){ .grid-flip{grid-template-columns:1fr} }
@@ -126,15 +120,26 @@ about_html = """<!DOCTYPE html>
     <div class="hero">
       <div class="card">
         <h2>Signal over noise.</h2>
-        <p class="lead">EventDash is a community-curated switchboard for Cardano events — X Spaces, workshops, town halls, meetups. We’re an <strong>information hub</strong>, not an organiser. Neutral listing. Zero pay-to-play.</p>
+        <p class="lead">
+          EventDash is a community-curated switchboard for Cardano events — X Spaces, workshops, town halls, meetups.
+          We’re an <strong>information hub</strong>, not an organiser. Neutral listing. Zero pay-to-play.
+        </p>
+        <p>
+          Built by community organisers who wanted a faster way to search and find what’s on.
+          Our small team spans <strong>Vietnam</strong> and the <strong>UK</strong>, so we know the pain of timezones and trying to
+          coordinate across regions. You can view everything in <strong>UTC</strong>, or <strong>toggle to your local time</strong> —
+          we’ll show the time for where you are right now.
+        </p>
+        <p>We’re continuing to ship enhancements to make discovery and participation effortless.</p>
         <div class="ticker">live right now: curated events • today: X Spaces, workshops, meetups</div>
       </div>
+
       <div class="card">
         <h2>Quick switches</h2>
         <div class="switches">
           <a class="btn primary" target="_blank" rel="noopener" href="https://docs.google.com/forms/d/e/1FAIpQLSfVnAWzBelbfU6KlRJp4B4GKiE1IUNZr-iaCtV4i5OGxb-iWw/viewform">➕ Submit an event</a>
-          <a class="btn" href="./index.html">📘 SOP: How to list</a>
-          <a class="btn" href="./terms.html">📄 Terms & Conditions</a>
+          <a class="btn" target="_blank" rel="noopener" href="https://lallymack.github.io/events-dash-sop/">📘 SOP: How to list</a>
+          <a class="btn" target="_blank" rel="noopener" href="https://lallymack.github.io/events-dash-sop/terms.html">📄 Terms & Conditions</a>
           <a class="btn" href="mailto:events@digitalinnovation.co.uk">✉️ Contact</a>
           <a class="btn" target="_blank" rel="noopener" href="https://eventdash.org">🔗 Open EventDash</a>
         </div>
@@ -167,14 +172,6 @@ about_html = """<!DOCTYPE html>
           <li>Join our lightweight curation programme.</li>
         </ul>
       </div>
-    </div>
-
-    <!-- Proof band -->
-    <div class="proof">
-      <div class="stat"><div class="n" data-target="30">0</div><small>days tracked (rolling)</small></div>
-      <div class="stat"><div class="n" data-target="12">0</div><small>languages supported</small></div>
-      <div class="stat"><div class="n" data-target="65">0%</div><small>community-submitted</small></div>
-      <div class="stat"><div class="n" data-target="2">0</div><small>formats (IRL + online)</small></div>
     </div>
 
     <!-- Operating principles -->
@@ -223,17 +220,18 @@ about_html = """<!DOCTYPE html>
           <p>Spotted an error, duplicate, or a broken link? Send us a quick note:</p>
           <p><a class="btn" href="mailto:events@digitalinnovation.co.uk?subject=EventDash%20feedback">✉️ Email EventDash</a></p>
           <p style="font-size:14px;color:#cfd2ff">Prefer GitHub? Open an issue in our repo and we’ll triage.</p>
-          <p><a class="btn" target="_blank" rel="noopener" href="https://github.com/">🐙 Open a GitHub issue</a></p>
+          <p><a class="btn" target="_blank" rel="noopener" href="https://github.com/lallymack/events-dash-sop/issues/new">🐙 Open a GitHub issue</a></p>
         </div>
         <div class="neon">
           <h3>Submit an event</h3>
           <p>Use the form (fastest) or invite our calendar address from your own Google Calendar.</p>
           <p><a class="btn primary" target="_blank" rel="noopener" href="https://docs.google.com/forms/d/e/1FAIpQLSfVnAWzBelbfU6KlRJp4B4GKiE1IUNZr-iaCtV4i5OGxb-iWw/viewform">➕ Submit via form</a></p>
-          <p><a class="btn" href="./index.html">📘 Read the SOP</a></p>
+          <p><a class="btn" target="_blank" rel="noopener" href="https://lallymack.github.io/events-dash-sop/">📘 Read the SOP</a></p>
           <p style="font-size:13px;color:#bfc3ff">Invite address: <code>events@digitalinnovation.co.uk</code></p>
         </div>
       </div>
       <p class="footer">EventDash • community-curated calendar for Cardano</p>
+      <p class="footer" style="margin-top:6px; opacity:.6">Quietly built by <span style="opacity:.9">Larisa McFarlane</span> & <span style="opacity:.9">Jonathon Slattery</span>.</p>
     </div>
   </div>
 
@@ -245,29 +243,6 @@ about_html = """<!DOCTYPE html>
         el.style.transition = rm.checked ? 'none' : 'transform .6s';
       });
     });
-
-    // Proof band counters (edit data-targets in HTML)
-    function animateCounters(){
-      document.querySelectorAll('.stat .n').forEach(el => {
-        const raw = el.getAttribute('data-target') || '0';
-        const isPercent = raw.includes('%');
-        const target = parseInt(raw.replace(/\\D/g,''),10) || 0;
-        let cur = 0;
-        const step = Math.max(1, Math.round(target/50));
-        const timer = setInterval(()=>{
-          cur += step;
-          if(cur >= target){ cur = target; clearInterval(timer); }
-          el.textContent = isPercent ? cur + '%' : cur;
-        }, 16);
-      });
-    }
-    document.addEventListener('DOMContentLoaded', animateCounters);
   </script>
 </body>
 </html>
-"""
-path = "/mnt/data/eventdash-about.html"
-with open(path, "w") as f:
-    f.write(about_html)
-
-path
